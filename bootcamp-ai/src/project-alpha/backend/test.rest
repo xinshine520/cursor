@@ -1,0 +1,373 @@
+### Ticket Hub API - REST Client 测试文件
+### 基础配置
+@baseUrl = http://localhost:8000
+@apiVersion = /api/v1
+
+### 变量（测试时请替换为实际值）
+### 使用说明：
+### 方法 1（推荐）：运行脚本获取示例 ID
+###   uv run python scripts/get_sample_ids.py
+###   然后复制输出的 ID 替换下面的变量
+###
+### 方法 2：通过 API 获取
+###   1. 先运行 "获取所有标签" 请求，从响应中复制一个 label 的 id
+###   2. 先运行 "获取所有 Tickets" 请求，从响应中复制一个 ticket 的 id
+###   3. 将下面的变量替换为实际的 UUID
+###
+### 示例 UUID 格式: 550e8400-e29b-41d4-a716-446655440000
+### ⚠️ 注意：下面的 ID 是占位符，请替换为实际的 UUID，否则会返回 404 错误
+@labelId = 00000000-0000-0000-0000-000000000000
+@ticketId = 00000000-0000-0000-0000-000000000000
+
+###
+### ============================================
+### 1. 健康检查
+### ============================================
+
+### 根路径
+GET {{baseUrl}}/
+
+### 健康检查
+GET {{baseUrl}}/health
+
+###
+### ============================================
+### 2. Labels API
+### ============================================
+### 💡 快速开始：
+### 1. 先运行下面的 "获取所有标签" 请求
+### 2. 从响应中复制一个 label 的 id（例如：从 "id": "550e8400-e29b-41d4-a716-446655440000"）
+### 3. 在文件顶部将 @labelId 变量替换为实际的 UUID
+### 4. 然后就可以测试其他需要 labelId 的端点了
+
+### 获取所有标签（带统计）
+### ⭐ 推荐先运行这个，获取实际的 label IDs
+GET {{baseUrl}}{{apiVersion}}/labels?with_count=true&sort_by=created_at
+
+### 获取所有标签（不带统计）
+GET {{baseUrl}}{{apiVersion}}/labels?with_count=false
+
+### 按名称排序获取标签
+GET {{baseUrl}}{{apiVersion}}/labels?with_count=true&sort_by=name
+
+### 获取单个标签详情
+### ⚠️ 注意：请先运行上面的 "获取所有标签" 请求，从响应中复制一个实际的 label id
+### 示例：如果响应中有 "id": "550e8400-e29b-41d4-a716-446655440000"
+### 则在文件顶部设置: @labelId = 550e8400-e29b-41d4-a716-446655440000
+GET {{baseUrl}}{{apiVersion}}/labels/{{labelId}}
+
+### 获取第一个标签的 ID（用于快速测试）
+### 运行此请求后，从响应中复制 id，然后更新文件顶部的 @labelId 变量
+GET {{baseUrl}}{{apiVersion}}/labels?with_count=true&sort_by=created_at
+
+### 创建新标签
+### ⚠️ 注意：标签名称必须唯一，如果已存在会返回 409 Conflict 错误
+### 💡 提示：每次测试时修改标签名称，例如添加时间戳或随机数
+### 示例：将 "测试标签" 改为 "测试标签-20241204-001" 或 "测试标签-随机数"
+POST {{baseUrl}}{{apiVersion}}/labels
+Content-Type: application/json
+
+{
+  "name": "测试标签-20241204-001",
+  "color": "#3b82f6",
+  "description": "这是一个测试标签"
+}
+
+### 创建标签（最小字段）
+### ⚠️ 注意：使用唯一的名称避免 409 冲突错误
+POST {{baseUrl}}{{apiVersion}}/labels
+Content-Type: application/json
+
+{
+  "name": "最小标签-20241204-001"
+}
+
+### 更新标签（部分字段）
+PUT {{baseUrl}}{{apiVersion}}/labels/{{labelId}}
+Content-Type: application/json
+
+{
+  "name": "更新后的标签名",
+  "color": "#ef4444",
+  "description": "更新后的描述"
+}
+
+### 更新标签（只更新颜色）
+PUT {{baseUrl}}{{apiVersion}}/labels/{{labelId}}
+Content-Type: application/json
+
+{
+  "color": "#22c55e"
+}
+
+### 删除标签
+DELETE {{baseUrl}}{{apiVersion}}/labels/{{labelId}}
+
+###
+### ============================================
+### 3. Tickets API - 查询
+### ============================================
+### 💡 快速开始：
+### 1. 先运行下面的 "获取所有 Tickets" 请求
+### 2. 从响应中复制一个 ticket 的 id
+### 3. 在文件顶部将 @ticketId 变量替换为实际的 UUID
+### 4. 然后就可以测试其他需要 ticketId 的端点了
+
+### 获取所有 Tickets（默认分页）
+### ⭐ 推荐先运行这个，获取实际的 ticket IDs
+GET {{baseUrl}}{{apiVersion}}/tickets
+
+### 获取 Tickets（指定分页）
+GET {{baseUrl}}{{apiVersion}}/tickets?page=1&page_size=10
+
+### 按标题搜索 Tickets
+GET {{baseUrl}}{{apiVersion}}/tickets?title=bug
+
+### 筛选：只显示打开的 Tickets
+GET {{baseUrl}}{{apiVersion}}/tickets?status=open
+
+### 筛选：只显示已完成的 Tickets
+GET {{baseUrl}}{{apiVersion}}/tickets?status=completed
+
+### 筛选：按优先级
+GET {{baseUrl}}{{apiVersion}}/tickets?priority=high
+
+### 筛选：按多个标签（逗号分隔的 UUID）
+GET {{baseUrl}}{{apiVersion}}/tickets?label_ids={{labelId}},<another-label-id>
+
+### 筛选：只显示无标签的 Tickets
+GET {{baseUrl}}{{apiVersion}}/tickets?no_label=true
+
+### 排序：按更新时间降序
+GET {{baseUrl}}{{apiVersion}}/tickets?sort_by=updated_at&sort_order=desc
+
+### 排序：按优先级升序
+GET {{baseUrl}}{{apiVersion}}/tickets?sort_by=priority&sort_order=asc
+
+### 组合查询：搜索 + 筛选 + 排序 + 分页
+GET {{baseUrl}}{{apiVersion}}/tickets?title=test&status=open&priority=high&sort_by=created_at&sort_order=desc&page=1&page_size=20
+
+### 获取单个 Ticket 详情
+### ⚠️ 注意：请先运行上面的 "获取所有 Tickets" 请求，从响应中复制一个实际的 ticket id
+### 示例：如果响应中有 "id": "550e8400-e29b-41d4-a716-446655440000"
+### 则在文件顶部设置: @ticketId = 550e8400-e29b-41d4-a716-446655440000
+GET {{baseUrl}}{{apiVersion}}/tickets/{{ticketId}}
+
+###
+### ============================================
+### 4. Tickets API - 创建
+### ============================================
+
+### 创建 Ticket（完整字段）
+POST {{baseUrl}}{{apiVersion}}/tickets
+Content-Type: application/json
+
+{
+  "title": "修复登录页面的 Bug",
+  "description": "用户无法使用邮箱登录，需要修复验证逻辑",
+  "priority": "high",
+  "label_ids": ["{{labelId}}"]
+}
+
+### 创建 Ticket（最小字段）
+POST {{baseUrl}}{{apiVersion}}/tickets
+Content-Type: application/json
+
+{
+  "title": "添加新功能"
+}
+
+### 创建 Ticket（带多个标签）
+POST {{baseUrl}}{{apiVersion}}/tickets
+Content-Type: application/json
+
+{
+  "title": "优化数据库查询性能",
+  "description": "需要优化慢查询，提升响应速度",
+  "priority": "critical",
+  "label_ids": ["{{labelId}}", "<another-label-id>"]
+}
+
+### 创建 Ticket（无标签）
+POST {{baseUrl}}{{apiVersion}}/tickets
+Content-Type: application/json
+
+{
+  "title": "编写文档",
+  "description": "需要编写 API 文档",
+  "priority": "medium",
+  "label_ids": []
+}
+
+###
+### ============================================
+### 5. Tickets API - 更新
+### ============================================
+
+### 更新 Ticket（完整字段）
+PUT {{baseUrl}}{{apiVersion}}/tickets/{{ticketId}}
+Content-Type: application/json
+
+{
+  "title": "更新后的标题",
+  "description": "更新后的描述",
+  "priority": "low",
+  "label_ids": ["{{labelId}}"]
+}
+
+### 更新 Ticket（只更新标题）
+PUT {{baseUrl}}{{apiVersion}}/tickets/{{ticketId}}
+Content-Type: application/json
+
+{
+  "title": "只更新标题"
+}
+
+### 更新 Ticket（只更新优先级）
+PUT {{baseUrl}}{{apiVersion}}/tickets/{{ticketId}}
+Content-Type: application/json
+
+{
+  "priority": "critical"
+}
+
+### 更新 Ticket（只更新标签）
+PUT {{baseUrl}}{{apiVersion}}/tickets/{{ticketId}}
+Content-Type: application/json
+
+{
+  "label_ids": ["{{labelId}}"]
+}
+
+### 更新 Ticket（移除所有标签）
+PUT {{baseUrl}}{{apiVersion}}/tickets/{{ticketId}}
+Content-Type: application/json
+
+{
+  "label_ids": []
+}
+
+###
+### ============================================
+### 6. Tickets API - 状态管理
+### ============================================
+
+### 完成 Ticket
+PATCH {{baseUrl}}{{apiVersion}}/tickets/{{ticketId}}/complete
+
+### 重新打开 Ticket
+PATCH {{baseUrl}}{{apiVersion}}/tickets/{{ticketId}}/reopen
+
+###
+### ============================================
+### 7. Tickets API - 删除
+### ============================================
+
+### 删除 Ticket
+DELETE {{baseUrl}}{{apiVersion}}/tickets/{{ticketId}}
+
+###
+### ============================================
+### 8. 错误测试用例
+### ============================================
+
+### 测试：创建重复名称的标签（应该返回 409）
+POST {{baseUrl}}{{apiVersion}}/labels
+Content-Type: application/json
+
+{
+  "name": "Bug",
+  "color": "#ef4444"
+}
+
+### 测试：获取不存在的标签（应该返回 404）
+GET {{baseUrl}}{{apiVersion}}/labels/00000000-0000-0000-0000-000000000000
+
+### 测试：获取不存在的 Ticket（应该返回 404）
+GET {{baseUrl}}{{apiVersion}}/tickets/00000000-0000-0000-0000-000000000000
+
+### 测试：创建 Ticket 时使用无效的标签 ID（应该返回 404）
+POST {{baseUrl}}{{apiVersion}}/tickets
+Content-Type: application/json
+
+{
+  "title": "测试无效标签",
+  "label_ids": ["00000000-0000-0000-0000-000000000000"]
+}
+
+### 测试：无效的分页参数（应该返回 422）
+GET {{baseUrl}}{{apiVersion}}/tickets?page=0
+
+### 测试：无效的 page_size（应该返回 422）
+GET {{baseUrl}}{{apiVersion}}/tickets?page_size=200
+
+### 测试：无效的优先级（应该返回 422）
+POST {{baseUrl}}{{apiVersion}}/tickets
+Content-Type: application/json
+
+{
+  "title": "测试",
+  "priority": "invalid"
+}
+
+### 测试：无效的状态（应该返回 422）
+GET {{baseUrl}}{{apiVersion}}/tickets?status=invalid
+
+### 测试：无效的 UUID 格式（应该返回 400）
+GET {{baseUrl}}{{apiVersion}}/tickets?label_ids=invalid-uuid
+
+###
+### ============================================
+### 9. 完整工作流测试
+### ============================================
+
+### 步骤 1: 创建标签
+### ⚠️ 注意：每次测试时修改标签名称，避免 409 冲突
+### 建议使用时间戳：工作流测试标签-20241204-001
+POST {{baseUrl}}{{apiVersion}}/labels
+Content-Type: application/json
+
+{
+  "name": "工作流测试标签-20241204-001",
+  "color": "#8b5cf6",
+  "description": "用于测试完整工作流"
+}
+
+### 步骤 2: 获取刚创建的标签（从响应中复制 labelId）
+# GET {{baseUrl}}{{apiVersion}}/labels?sort_by=created_at
+
+### 步骤 3: 创建 Ticket 并关联标签（替换 <label-id-from-step-1>）
+POST {{baseUrl}}{{apiVersion}}/tickets
+Content-Type: application/json
+
+{
+  "title": "工作流测试 Ticket",
+  "description": "这是一个完整工作流测试",
+  "priority": "medium",
+  "label_ids": ["<label-id-from-step-1>"]
+}
+
+### 步骤 4: 获取刚创建的 Ticket（从响应中复制 ticketId）
+# GET {{baseUrl}}{{apiVersion}}/tickets?sort_by=created_at
+
+### 步骤 5: 完成 Ticket（替换 <ticket-id-from-step-3>）
+# PATCH {{baseUrl}}{{apiVersion}}/tickets/<ticket-id-from-step-3>/complete
+
+### 步骤 6: 重新打开 Ticket
+# PATCH {{baseUrl}}{{apiVersion}}/tickets/<ticket-id-from-step-3>/reopen
+
+### 步骤 7: 更新 Ticket
+# PUT {{baseUrl}}{{apiVersion}}/tickets/<ticket-id-from-step-3>
+# Content-Type: application/json
+# 
+# {
+#   "title": "更新后的工作流测试 Ticket",
+#   "priority": "high"
+# }
+
+### 步骤 8: 删除 Ticket
+# DELETE {{baseUrl}}{{apiVersion}}/tickets/<ticket-id-from-step-3>
+
+### 步骤 9: 删除标签
+# DELETE {{baseUrl}}{{apiVersion}}/labels/<label-id-from-step-1>
+

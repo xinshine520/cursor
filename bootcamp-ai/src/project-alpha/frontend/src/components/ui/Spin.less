@@ -1,0 +1,31 @@
+.aliyun-spin-wrapper {
+  position: relative;
+
+  .aliyun-spin-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border-radius: var(--aliyun-radius-lg);
+    transition: all var(--aliyun-transition-base);
+  }
+
+  .aliyun-spin-content {
+    transition: all var(--aliyun-transition-base);
+
+    &.aliyun-spin-content-blur {
+      filter: blur(1px);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+  }
+}
+

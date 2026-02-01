@@ -1,0 +1,113 @@
+.apple-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.apple-dropdown-trigger {
+  cursor: pointer;
+  outline: none;
+  
+  &:focus-visible {
+    outline: 2px solid #0071e3;
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+}
+
+/* Portal 渲染的菜单样式（全局作用域） */
+.apple-dropdown-menu {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  min-width: 160px;
+  padding: 8px;
+  outline: none;
+  pointer-events: auto;
+  
+  /* 禁用所有动画和过渡 */
+  animation: none !important;
+  transition: none !important;
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+  
+  /* Portal 模式下，位置由 style 直接设置 */
+  &.apple-dropdown-portal {
+    position: fixed;
+    z-index: 10001;
+  }
+}
+
+.apple-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #1d1d1f;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  
+  /* 禁用过渡效果，避免闪烁 */
+  transition: none;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #0071e3;
+    outline-offset: -2px;
+  }
+  
+  &:active {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  &.apple-dropdown-item-danger {
+    color: #ff3b30;
+
+    &:hover {
+      background: rgba(255, 59, 48, 0.1);
+    }
+    
+    &:active {
+      background: rgba(255, 59, 48, 0.15);
+    }
+  }
+}
+
+.apple-dropdown-icon {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.apple-dropdown-label {
+  flex: 1;
+}
+
+.apple-dropdown-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 8px 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+

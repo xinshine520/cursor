@@ -1,0 +1,193 @@
+.aliyun-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--aliyun-z-sticky);
+  background: var(--aliyun-paper);
+  border-bottom: 1px solid var(--aliyun-gray-200);
+  transition: all var(--aliyun-transition-base);
+  flex-shrink: 0;
+  box-shadow: var(--aliyun-shadow-sm);
+
+  /* Alibaba Cloud scroll-based transparency */
+  &.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--aliyun-shadow-md);
+    border-bottom-color: var(--aliyun-gray-300);
+  }
+
+  .aliyun-header-content {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--aliyun-grid-8);
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    max-width: 1440px;
+  }
+
+  .aliyun-header-left {
+    display: flex;
+    align-items: center;
+
+    .aliyun-header-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--aliyun-grid-4);
+      transition: all var(--aliyun-transition-base);
+
+      .aliyun-logo-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--aliyun-radius-lg);
+        background: linear-gradient(135deg, var(--aliyun-primary) 0%, var(--aliyun-primary-hover) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--aliyun-shadow-md);
+        transition: all var(--aliyun-transition-base);
+        position: relative;
+        overflow: hidden;
+
+        /* Alibaba Cloud hover effect */
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--aliyun-shadow-lg);
+        }
+
+        &:active {
+          transform: translateY(0);
+          transition: all var(--aliyun-transition-fast);
+        }
+
+        span {
+          font-size: 20px;
+          color: var(--aliyun-paper);
+          font-weight: 700;
+          letter-spacing: var(--aliyun-tracking-tight);
+        }
+      }
+
+      .aliyun-header-title {
+        font-size: var(--aliyun-text-2xl);
+        font-weight: 600;
+        color: var(--aliyun-ink);
+        letter-spacing: var(--aliyun-tracking-tight);
+        line-height: var(--aliyun-leading-tight);
+        transition: color var(--aliyun-transition-fast);
+      }
+
+      &:hover .aliyun-header-title {
+        color: var(--aliyun-primary);
+      }
+    }
+  }
+
+  .aliyun-header-right {
+    .aliyun-header-create-btn {
+      height: 48px;
+      padding: 0 var(--aliyun-grid-8);
+      border-radius: var(--aliyun-radius-lg);
+      font-weight: 500;
+      letter-spacing: var(--aliyun-tracking-normal);
+      font-size: var(--aliyun-text-base);
+      background: var(--aliyun-primary);
+      color: var(--aliyun-paper);
+      border: 1px solid var(--aliyun-primary);
+      box-shadow: var(--aliyun-shadow-sm);
+      transition: all var(--aliyun-transition-base);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+
+      /* Alibaba Cloud button hover effect */
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--aliyun-shadow-md);
+        background: var(--aliyun-primary-hover);
+        border-color: var(--aliyun-primary-hover);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: var(--aliyun-shadow-sm);
+        background: var(--aliyun-primary-active);
+        border-color: var(--aliyun-primary-active);
+      }
+
+      /* Alibaba Cloud focus ring */
+      &.aliyun-focus-ring:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--aliyun-primary-light), var(--aliyun-shadow-sm);
+      }
+
+      /* Icon styling */
+      svg {
+        width: 18px;
+        height: 18px;
+        margin-right: var(--aliyun-grid-2);
+        transition: transform var(--aliyun-transition-fast);
+      }
+
+      &:hover svg {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+
+/* Alibaba Cloud responsive header */
+@media (max-width: 768px) {
+  .aliyun-header {
+    .aliyun-header-content {
+      padding: 0 var(--aliyun-grid-4);
+      height: 64px;
+    }
+
+    .aliyun-header-left {
+      .aliyun-header-logo {
+        gap: var(--aliyun-grid-3);
+
+        .aliyun-logo-icon {
+          width: 40px;
+          height: 40px;
+
+          span {
+            font-size: 18px;
+          }
+        }
+
+        .aliyun-header-title {
+          font-size: var(--aliyun-text-lg);
+          font-weight: 600;
+        }
+      }
+    }
+
+    .aliyun-header-right {
+      .aliyun-header-create-btn {
+        height: 44px;
+        padding: 0 var(--aliyun-grid-6);
+        font-size: var(--aliyun-text-sm);
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .aliyun-header {
+    .aliyun-header-content {
+      padding: 0 var(--aliyun-grid-3);
+    }
+
+    .aliyun-header-left {
+      .aliyun-header-logo {
+        .aliyun-header-title {
+          display: none; /* Hide title on very small screens */
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,250 @@
+.aliyun-ticket-card {
+  border-radius: var(--aliyun-radius-lg);
+  border: 1px solid var(--aliyun-gray-200);
+  box-shadow: var(--aliyun-shadow-sm);
+  overflow: visible;
+  height: 320px;
+  min-height: 320px;
+  max-height: 320px;
+  display: flex;
+  flex-direction: column;
+  background: var(--aliyun-paper);
+  position: relative;
+  transition: all var(--aliyun-transition-base);
+
+  /* Alibaba Cloud hover effect - 阿里云悬停效果 */
+  &:hover {
+    border-color: var(--aliyun-primary-light);
+    box-shadow: var(--aliyun-shadow-lg);
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: var(--aliyun-shadow-sm);
+  }
+
+  &.aliyun-ticket-completed {
+    opacity: 0.6;
+
+    &:hover {
+      border-color: var(--aliyun-gray-300);
+      box-shadow: var(--aliyun-shadow-md);
+    }
+  }
+  
+  .aliyun-ticket-content {
+    padding: var(--aliyun-grid-6);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    gap: var(--aliyun-grid-4);
+    overflow: hidden;
+
+    .aliyun-ticket-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--aliyun-grid-3);
+      flex-shrink: 0;
+
+      .aliyun-ticket-title {
+        flex: 1;
+        font-size: var(--aliyun-text-xl);
+        font-weight: 600;
+        color: var(--aliyun-ink);
+        letter-spacing: var(--aliyun-tracking-tight);
+        line-height: var(--aliyun-leading-tight);
+        margin: 0;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        min-width: 0;
+        overflow: hidden;
+        transition: color var(--aliyun-transition-base);
+      }
+
+      /* 阿里云标题悬停效果 */
+      &:hover .aliyun-ticket-title {
+        color: var(--aliyun-primary);
+      }
+
+      .aliyun-priority-tag {
+        border-radius: var(--aliyun-radius-md);
+        border: 1px solid;
+        font-size: var(--aliyun-text-sm);
+        font-weight: 500;
+        padding: var(--aliyun-grid-2) var(--aliyun-grid-3);
+        margin: 0;
+        flex-shrink: 0;
+        white-space: nowrap;
+        transition: all var(--aliyun-transition-fast);
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: var(--aliyun-shadow-md);
+        }
+      }
+    }
+
+    .aliyun-ticket-description {
+      font-size: var(--aliyun-text-base);
+      color: var(--aliyun-ink-lighter);
+      line-height: var(--aliyun-leading-normal);
+      flex-shrink: 0;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      margin: 0;
+      overflow: hidden;
+      transition: color var(--aliyun-transition-fast);
+
+      /* 阿里云描述悬停效果 */
+      .aliyun-ticket-card:hover & {
+        color: var(--aliyun-ink-light);
+      }
+    }
+
+    .aliyun-ticket-labels {
+      flex-shrink: 0;
+      min-height: 32px;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--aliyun-grid-2);
+
+      .aliyun-label-tag {
+        border-radius: var(--aliyun-radius-sm);
+        border: none;
+        font-size: var(--aliyun-text-sm);
+        padding: var(--aliyun-grid-2) var(--aliyun-grid-3);
+        margin: 0;
+        color: var(--aliyun-paper);
+        font-weight: 500;
+        white-space: nowrap;
+        box-shadow: var(--aliyun-shadow-xs);
+        transition: all var(--aliyun-transition-fast);
+        position: relative;
+        overflow: hidden;
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: var(--aliyun-shadow-sm);
+        }
+      }
+    }
+
+    .aliyun-ticket-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: auto;
+      flex-shrink: 0;
+      padding-top: var(--aliyun-grid-3);
+      border-top: 1px solid var(--aliyun-gray-200);
+
+      .aliyun-ticket-time {
+        font-size: var(--aliyun-text-sm);
+        color: var(--aliyun-ink-lighter);
+        letter-spacing: var(--aliyun-tracking-normal);
+        font-variant-numeric: tabular-nums;
+        transition: color var(--aliyun-transition-fast);
+
+        .aliyun-ticket-card:hover & {
+          color: var(--aliyun-ink-light);
+        }
+      }
+    }
+  }
+  
+  .aliyun-ticket-actions {
+    border-top: 1px solid var(--aliyun-gray-200);
+    background: var(--aliyun-gray-50);
+    padding: var(--aliyun-grid-4) var(--aliyun-grid-6);
+    margin-top: auto;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: var(--aliyun-z-dropdown);
+    overflow: visible;
+    transition: all var(--aliyun-transition-base);
+
+    .aliyun-ticket-card:hover & {
+      background: var(--aliyun-gray-100);
+    }
+  }
+
+  .aliyun-ticket-more {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--aliyun-gray-300);
+    background: var(--aliyun-paper);
+    color: var(--aliyun-ink-lighter);
+    cursor: pointer;
+    padding: var(--aliyun-grid-2);
+    border-radius: var(--aliyun-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: var(--aliyun-z-dropdown);
+    transition: all var(--aliyun-transition-fast);
+
+    /* 阿里云焦点环 */
+    &.aliyun-focus-ring:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--aliyun-primary-light);
+    }
+
+    &:hover {
+      border-color: var(--aliyun-primary);
+      color: var(--aliyun-primary);
+      background: var(--aliyun-primary-lighter);
+      transform: translateY(-1px);
+      box-shadow: var(--aliyun-shadow-md);
+    }
+
+    &:active {
+      border-color: var(--aliyun-primary-active);
+      background: var(--aliyun-primary-light);
+      transform: translateY(0);
+      box-shadow: var(--aliyun-shadow-sm);
+    }
+  }
+}
+
+/* Alibaba Cloud completed state - 阿里云完成状态 */
+.aliyun-ticket-completed .aliyun-ticket-actions {
+  background: var(--aliyun-gray-100);
+  border-top-color: var(--aliyun-gray-200);
+}
+
+/* Responsive design for TicketCard - 响应式设计 */
+@media (max-width: 768px) {
+  .aliyun-ticket-card {
+    height: 280px;
+    min-height: 280px;
+    max-height: 280px;
+
+    .aliyun-ticket-content {
+      padding: var(--aliyun-grid-4);
+      gap: var(--aliyun-grid-3);
+
+      .aliyun-ticket-header {
+        .aliyun-ticket-title {
+          font-size: var(--aliyun-text-lg);
+        }
+      }
+
+      .aliyun-ticket-description {
+        font-size: var(--aliyun-text-sm);
+      }
+    }
+
+    .aliyun-ticket-actions {
+      padding: var(--aliyun-grid-3) var(--aliyun-grid-4);
+    }
+  }
+}
+

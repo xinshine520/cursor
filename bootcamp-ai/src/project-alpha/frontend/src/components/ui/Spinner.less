@@ -1,0 +1,37 @@
+.aliyun-spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  .aliyun-spinner-circle {
+    border: 3px solid var(--aliyun-primary-light);
+    border-top-color: var(--aliyun-primary);
+    border-radius: 50%;
+    animation: aliyun-spin 0.8s linear infinite;
+  }
+
+  &.aliyun-spinner-small .aliyun-spinner-circle {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+  }
+
+  &.aliyun-spinner-medium .aliyun-spinner-circle {
+    width: 24px;
+    height: 24px;
+    border-width: 3px;
+  }
+
+  &.aliyun-spinner-large .aliyun-spinner-circle {
+    width: 32px;
+    height: 32px;
+    border-width: 4px;
+  }
+}
+
+@keyframes aliyun-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

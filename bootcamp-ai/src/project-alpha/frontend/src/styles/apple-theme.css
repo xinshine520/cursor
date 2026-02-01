@@ -1,0 +1,655 @@
+/* Alibaba Cloud Evolving Design System */
+
+:root {
+  /* Alibaba Cloud Brand Colors - 智能橙为主色 */
+  --aliyun-primary: #FF6A00;
+  --aliyun-primary-hover: #FF8A1A;
+  --aliyun-primary-active: #E55A00;
+  --aliyun-primary-light: rgba(255, 106, 0, 0.1);
+  --aliyun-primary-lighter: rgba(255, 106, 0, 0.05);
+
+  /* 智能黑和白 */
+  --aliyun-ink: #111111;
+  --aliyun-ink-light: #333333;
+  --aliyun-ink-lighter: #666666;
+  --aliyun-ink-lightest: #999999;
+  --aliyun-paper: #FFFFFF;
+  --aliyun-gray-50: #FAFAFA;
+  --aliyun-gray-100: #F5F5F5;
+  --aliyun-gray-200: #EEEEEE;
+  --aliyun-gray-300: #E0E0E0;
+  --aliyun-gray-400: #BDBDBD;
+  --aliyun-gray-500: #9E9E9E;
+  --aliyun-gray-600: #757575;
+  --aliyun-gray-700: #616161;
+  --aliyun-gray-800: #424242;
+  --aliyun-gray-900: #212121;
+
+  /* Functional Colors - 功能色彩 */
+  --aliyun-success: #46BC15;
+  --aliyun-success-light: rgba(70, 188, 21, 0.1);
+  --aliyun-warning: #FA8C16;
+  --aliyun-warning-light: rgba(250, 140, 22, 0.1);
+  --aliyun-error: #F5222D;
+  --aliyun-error-light: rgba(245, 34, 45, 0.1);
+  --aliyun-info: #1890FF;
+  --aliyun-info-light: rgba(24, 144, 255, 0.1);
+
+  /* Product Colors - 产品系列色彩 */
+  --aliyun-compute: #FF6A00;
+  --aliyun-storage: #52C41A;
+  --aliyun-network: #1890FF;
+  --aliyun-security: #F5222D;
+  --aliyun-database: #722ED1;
+  --aliyun-ai: #13C2C2;
+  --aliyun-monitoring: #FA8C16;
+  --aliyun-middleware: #EB2F96;
+
+  /* Matrix Grid System - 矩阵栅格系统 */
+  --aliyun-grid-1: 4px;
+  --aliyun-grid-2: 8px;
+  --aliyun-grid-3: 12px;
+  --aliyun-grid-4: 16px;
+  --aliyun-grid-6: 24px;
+  --aliyun-grid-8: 32px;
+  --aliyun-grid-10: 40px;
+  --aliyun-grid-12: 48px;
+  --aliyun-grid-16: 64px;
+  --aliyun-grid-20: 80px;
+  --aliyun-grid-24: 96px;
+
+  /* Typography - 字体系统 */
+  --aliyun-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --aliyun-font-family-cn: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  --aliyun-font-family-code: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+
+  /* Font Sizes - 字号系统 */
+  --aliyun-text-xs: 12px;
+  --aliyun-text-sm: 14px;
+  --aliyun-text-base: 16px;
+  --aliyun-text-lg: 18px;
+  --aliyun-text-xl: 20px;
+  --aliyun-text-2xl: 24px;
+  --aliyun-text-3xl: 28px;
+  --aliyun-text-4xl: 32px;
+  --aliyun-text-5xl: 40px;
+
+  /* Line Heights - 行高 */
+  --aliyun-leading-tight: 1.25;
+  --aliyun-leading-normal: 1.5;
+  --aliyun-leading-relaxed: 1.75;
+
+  /* Letter Spacing - 字间距 */
+  --aliyun-tracking-tight: -0.025em;
+  --aliyun-tracking-normal: 0;
+  --aliyun-tracking-wide: 0.025em;
+
+  /* Shadows - 阴影系统 */
+  --aliyun-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --aliyun-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --aliyun-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --aliyun-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --aliyun-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Border Radius - 圆角 */
+  --aliyun-radius-none: 0;
+  --aliyun-radius-sm: 4px;
+  --aliyun-radius-md: 8px;
+  --aliyun-radius-lg: 12px;
+  --aliyun-radius-xl: 16px;
+  --aliyun-radius-2xl: 20px;
+  --aliyun-radius-full: 9999px;
+
+  /* Transitions - 过渡动画 */
+  --aliyun-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --aliyun-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --aliyun-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --aliyun-ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --aliyun-transition-fast: 150ms var(--aliyun-ease-out);
+  --aliyun-transition-base: 300ms var(--aliyun-ease-out);
+  --aliyun-transition-slow: 500ms var(--aliyun-ease-out);
+
+  /* Z-Index Scale */
+  --aliyun-z-dropdown: 1000;
+  --aliyun-z-sticky: 1020;
+  --aliyun-z-fixed: 1030;
+  --aliyun-z-modal-backdrop: 1040;
+  --aliyun-z-modal: 1050;
+  --aliyun-z-popover: 1060;
+  --aliyun-z-tooltip: 1070;
+}
+
+/* Alibaba Cloud Foundation Styles */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--aliyun-font-family-cn), var(--aliyun-font-family);
+  background: var(--aliyun-gray-50);
+  color: var(--aliyun-ink);
+  line-height: var(--aliyun-leading-normal);
+  font-weight: 400;
+  letter-spacing: var(--aliyun-tracking-normal);
+  font-size: var(--aliyun-text-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Alibaba Cloud Component System */
+
+/* Surface System - 表面系统 */
+.aliyun-surface {
+  background: var(--aliyun-paper);
+  border-radius: var(--aliyun-radius-lg);
+  box-shadow: var(--aliyun-shadow-sm);
+  transition: all var(--aliyun-transition-base);
+}
+
+.aliyun-surface:hover {
+  box-shadow: var(--aliyun-shadow-md);
+}
+
+.aliyun-surface-elevated {
+  box-shadow: var(--aliyun-shadow-lg);
+}
+
+.aliyun-surface-elevated:hover {
+  box-shadow: var(--aliyun-shadow-xl);
+}
+
+/* Button System - 按钮系统 */
+.aliyun-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--aliyun-radius-md);
+  font-family: var(--aliyun-font-family-cn), var(--aliyun-font-family);
+  font-size: var(--aliyun-text-base);
+  font-weight: 400;
+  line-height: var(--aliyun-leading-normal);
+  letter-spacing: var(--aliyun-tracking-normal);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--aliyun-transition-fast);
+  border: 1px solid transparent;
+  outline: none;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.aliyun-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.aliyun-btn-primary {
+  background: var(--aliyun-primary);
+  border-color: var(--aliyun-primary);
+  color: var(--aliyun-paper);
+  box-shadow: var(--aliyun-shadow-sm);
+}
+
+.aliyun-btn-primary:hover:not(:disabled) {
+  background: var(--aliyun-primary-hover);
+  border-color: var(--aliyun-primary-hover);
+  box-shadow: var(--aliyun-shadow-md);
+}
+
+.aliyun-btn-primary:active:not(:disabled) {
+  background: var(--aliyun-primary-active);
+  border-color: var(--aliyun-primary-active);
+  box-shadow: var(--aliyun-shadow-sm);
+}
+
+.aliyun-btn-secondary {
+  background: var(--aliyun-paper);
+  border-color: var(--aliyun-gray-300);
+  color: var(--aliyun-ink-light);
+}
+
+.aliyun-btn-secondary:hover:not(:disabled) {
+  border-color: var(--aliyun-primary);
+  color: var(--aliyun-primary);
+}
+
+.aliyun-btn-ghost {
+  background: transparent;
+  border-color: var(--aliyun-primary);
+  color: var(--aliyun-primary);
+}
+
+.aliyun-btn-ghost:hover:not(:disabled) {
+  background: var(--aliyun-primary-light);
+}
+
+.aliyun-btn-lg {
+  height: 48px;
+  padding: 0 var(--aliyun-grid-6);
+  font-size: var(--aliyun-text-lg);
+}
+
+.aliyun-btn-md {
+  height: 40px;
+  padding: 0 var(--aliyun-grid-4);
+}
+
+.aliyun-btn-sm {
+  height: 32px;
+  padding: 0 var(--aliyun-grid-3);
+  font-size: var(--aliyun-text-sm);
+}
+
+/* Input System - 输入框系统 */
+.aliyun-input {
+  width: 100%;
+  padding: var(--aliyun-grid-3) var(--aliyun-grid-4);
+  font-size: var(--aliyun-text-base);
+  font-family: var(--aliyun-font-family-cn), var(--aliyun-font-family);
+  color: var(--aliyun-ink);
+  background: var(--aliyun-paper);
+  border: 1px solid var(--aliyun-gray-300);
+  border-radius: var(--aliyun-radius-md);
+  transition: all var(--aliyun-transition-fast);
+  outline: none;
+}
+
+.aliyun-input::placeholder {
+  color: var(--aliyun-ink-lightest);
+}
+
+.aliyun-input:focus {
+  border-color: var(--aliyun-primary);
+  box-shadow: 0 0 0 2px var(--aliyun-primary-light);
+}
+
+.aliyun-input:disabled {
+  background: var(--aliyun-gray-100);
+  border-color: var(--aliyun-gray-200);
+  color: var(--aliyun-ink-lightest);
+  cursor: not-allowed;
+}
+
+/* Card System - 卡片系统 */
+.aliyun-card {
+  background: var(--aliyun-paper);
+  border: 1px solid var(--aliyun-gray-200);
+  border-radius: var(--aliyun-radius-lg);
+  box-shadow: var(--aliyun-shadow-sm);
+  overflow: hidden;
+  transition: all var(--aliyun-transition-base);
+}
+
+.aliyun-card:hover {
+  border-color: var(--aliyun-gray-300);
+  box-shadow: var(--aliyun-shadow-md);
+}
+
+.aliyun-card-interactive {
+  cursor: pointer;
+}
+
+.aliyun-card-interactive:hover {
+  border-color: var(--aliyun-primary-light);
+  box-shadow: var(--aliyun-shadow-lg);
+}
+
+.aliyun-card-interactive:active {
+  transform: translateY(1px);
+  box-shadow: var(--aliyun-shadow-sm);
+}
+
+/* Typography System - 字体系统 */
+.aliyun-text-heading-1 {
+  font-size: var(--aliyun-text-4xl);
+  font-weight: 600;
+  line-height: var(--aliyun-leading-tight);
+  letter-spacing: var(--aliyun-tracking-tight);
+  color: var(--aliyun-ink);
+}
+
+.aliyun-text-heading-2 {
+  font-size: var(--aliyun-text-3xl);
+  font-weight: 600;
+  line-height: var(--aliyun-leading-tight);
+  letter-spacing: var(--aliyun-tracking-tight);
+  color: var(--aliyun-ink);
+}
+
+.aliyun-text-heading-3 {
+  font-size: var(--aliyun-text-2xl);
+  font-weight: 600;
+  line-height: var(--aliyun-leading-tight);
+  letter-spacing: var(--aliyun-tracking-tight);
+  color: var(--aliyun-ink);
+}
+
+.aliyun-text-heading-4 {
+  font-size: var(--aliyun-text-xl);
+  font-weight: 600;
+  line-height: var(--aliyun-leading-normal);
+  letter-spacing: var(--aliyun-tracking-tight);
+  color: var(--aliyun-ink);
+}
+
+.aliyun-text-body {
+  font-size: var(--aliyun-text-base);
+  font-weight: 400;
+  line-height: var(--aliyun-leading-normal);
+  letter-spacing: var(--aliyun-tracking-normal);
+  color: var(--aliyun-ink);
+}
+
+.aliyun-text-body-sm {
+  font-size: var(--aliyun-text-sm);
+  font-weight: 400;
+  line-height: var(--aliyun-leading-normal);
+  letter-spacing: var(--aliyun-tracking-normal);
+  color: var(--aliyun-ink);
+}
+
+.aliyun-text-caption {
+  font-size: var(--aliyun-text-xs);
+  font-weight: 400;
+  line-height: var(--aliyun-leading-normal);
+  letter-spacing: var(--aliyun-tracking-normal);
+  color: var(--aliyun-ink-lighter);
+}
+
+/* Priority Colors - 优先级颜色 */
+.aliyun-priority-critical {
+  color: var(--aliyun-error);
+  background: var(--aliyun-error-light);
+  border-color: var(--aliyun-error);
+}
+
+.aliyun-priority-high {
+  color: var(--aliyun-warning);
+  background: var(--aliyun-warning-light);
+  border-color: var(--aliyun-warning);
+}
+
+.aliyun-priority-medium {
+  color: var(--aliyun-warning);
+  background: var(--aliyun-warning-light);
+  border-color: var(--aliyun-warning);
+}
+
+.aliyun-priority-low {
+  color: var(--aliyun-success);
+  background: var(--aliyun-success-light);
+  border-color: var(--aliyun-success);
+}
+
+/* Status States - 状态样式 */
+.aliyun-success {
+  color: var(--aliyun-success);
+  background: var(--aliyun-success-light);
+}
+
+.aliyun-warning {
+  color: var(--aliyun-warning);
+  background: var(--aliyun-warning-light);
+}
+
+.aliyun-error {
+  color: var(--aliyun-error);
+  background: var(--aliyun-error-light);
+}
+
+.aliyun-info {
+  color: var(--aliyun-info);
+  background: var(--aliyun-info-light);
+}
+
+/* Layout Components - 布局组件 */
+.aliyun-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--aliyun-grid-6);
+}
+
+.aliyun-section {
+  padding: var(--aliyun-grid-12) 0;
+}
+
+.aliyun-divider {
+  height: 1px;
+  background: var(--aliyun-gray-200);
+  border: none;
+  margin: var(--aliyun-grid-6) 0;
+}
+
+/* Alibaba Cloud Animation System - 阿里云动画系统 */
+@keyframes aliyun-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aliyun-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes aliyun-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aliyun-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aliyun-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes aliyun-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes aliyun-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes aliyun-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Animation Classes - 动画类 */
+.aliyun-fade-in {
+  animation: aliyun-fade-in var(--aliyun-transition-base);
+}
+
+.aliyun-scale-in {
+  animation: aliyun-scale-in var(--aliyun-transition-spring);
+}
+
+.aliyun-slide-up {
+  animation: aliyun-slide-up var(--aliyun-transition-base);
+}
+
+.aliyun-slide-down {
+  animation: aliyun-slide-down var(--aliyun-transition-base);
+}
+
+.aliyun-slide-right {
+  animation: aliyun-slide-right var(--aliyun-transition-base);
+}
+
+.aliyun-slide-left {
+  animation: aliyun-slide-left var(--aliyun-transition-base);
+}
+
+.aliyun-pulse {
+  animation: aliyun-pulse 2s ease-in-out infinite;
+}
+
+/* Focus System - 焦点系统 */
+.aliyun-focus-ring {
+  position: relative;
+}
+
+.aliyun-focus-ring:focus-visible {
+  outline: none;
+}
+
+.aliyun-focus-ring:focus-visible::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid var(--aliyun-primary);
+  border-radius: inherit;
+  animation: aliyun-focus-ring 200ms var(--aliyun-ease-out);
+}
+
+@keyframes aliyun-focus-ring {
+  from {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* State System - 状态系统 */
+.aliyun-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.aliyun-loading {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.aliyun-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 106, 0, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: aliyun-shimmer 1.5s ease-in-out infinite;
+}
+
+/* Utility Classes - 工具类 */
+.aliyun-text-center {
+  text-align: center;
+}
+
+.aliyun-text-left {
+  text-align: left;
+}
+
+.aliyun-text-right {
+  text-align: right;
+}
+
+.aliyun-flex {
+  display: flex;
+}
+
+.aliyun-flex-col {
+  flex-direction: column;
+}
+
+.aliyun-items-center {
+  align-items: center;
+}
+
+.aliyun-justify-center {
+  justify-content: center;
+}
+
+.aliyun-justify-between {
+  justify-content: space-between;
+}
+
+.aliyun-hidden {
+  display: none;
+}
+
+.aliyun-invisible {
+  visibility: hidden;
+}
+
+/* Responsive Utilities - 响应式工具 */
+@media (max-width: 768px) {
+  .aliyun-md-hidden {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .aliyun-sm-hidden {
+    display: none;
+  }
+}
+

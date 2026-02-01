@@ -1,0 +1,195 @@
+# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+# Cursor 忽略文件配置
+# 此文件指定 Cursor AI 应该忽略哪些文件和目录
+
+# ============================================
+# Node.js / JavaScript / TypeScript 相关
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.npm/
+.yarn/
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+uv.lock
+
+# ============================================
+# Python 相关
+# ============================================
+# Python 缓存文件
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# 虚拟环境
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Python 包信息
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+
+# Python 工具缓存
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.pytype/
+cython_debug/
+
+# ============================================
+# 构建输出目录
+# ============================================
+dist/
+build/
+out/
+.next/
+.nuxt/
+.vite/
+.output/
+.cache/
+.temp/
+.tmp/
+
+# ============================================
+# 数据库文件
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# ============================================
+# 日志文件
+# ============================================
+*.log
+logs/
+*.log.*
+
+# ============================================
+# 环境变量和配置文件
+# ============================================
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+.env.test
+*.local
+
+# ============================================
+# IDE 和编辑器配置
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# ============================================
+# 操作系统文件
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ============================================
+# 测试覆盖率报告
+# ============================================
+coverage/
+.coverage
+.nyc_output/
+htmlcov/
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# ============================================
+# 临时文件和备份
+# ============================================
+*.bak
+*.backup
+*.tmp
+*.temp
+*.old
+*.orig
+*.save
+*.swp
+*.swo
+
+# ============================================
+# 文档生成
+# ============================================
+docs/_build/
+site/
+
+# ============================================
+# 其他
+# ============================================
+*.zip
+*.tar.gz
+*.rar
+*.7z
+.cache/
+.parcel-cache/
+.turbo/
+.vercel/
+.netlify/
+
+# ============================================
+# 项目特定文件（根据实际需要调整）
+# ============================================
+# 如果不需要 AI 分析测试数据生成脚本
+**/scripts/generate_test_data.py
+
+# 如果不需要 AI 分析测试文件
+tests/
+**/__tests__/
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+
+# 如果不需要 AI 分析 API 测试文件
+test-api*.py
+test-api*.md
+test.rest
+*.rest
+
+# Mock 数据和测试数据文件
+pocket-mock.json
+**/*mock*.json
+
+# 数据库迁移文件（可选：如果不需要 AI 分析迁移历史）
+alembic/versions/*.py
+

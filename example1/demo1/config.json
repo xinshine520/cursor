@@ -1,0 +1,91 @@
+{
+  "agent": {
+    "openai": {
+      "api_key": "sk-NthTvvnfEZB6VvcB9js9GD34NKFLlBoiBdvMYBrBSKk8M5XI",
+      "model": "gpt-4o-mini",
+      "base_url": "https://api.fe8.cn/v1",
+      "timeout": 30
+    },
+    "conversation": {
+      "max_history_length": 20,
+      "enable_history": true
+    },
+    "smart_routing": {
+      "enabled": true,
+      "min_message_length": 5
+    },
+    "ui": {
+      "exit_commands": ["quit", "exit", "退出"],
+      "show_stats_command": "stats",
+      "prompt_prefix": "你: ",
+      "response_prefix": "Agent: "
+    }
+  },
+  "skills": {
+    "weather": {
+      "api_key": "46554e2e1325362f80e648576ccfe1d5",
+      "base_url": "https://api.openweathermap.org/data/2.5/weather",
+      "timeout": 10,
+      "default_lang": "zh_cn",
+      "default_units": "metric"
+    },
+    "news": {
+      "api_key": "a3d3719b3b90491ca47242bcc40ed42b",
+      "base_url": "https://newsapi.org/v2/top-headlines",
+      "timeout": 10,
+      "default_country": "us",
+      "default_page_size": 5,
+      "max_page_size": 20
+    }
+  },
+  "intent_classifier": {
+    "keywords": {
+      "get_weather": [
+        "天气",
+        "温度",
+        "气温",
+        "下雨",
+        "晴天",
+        "阴天",
+        "多云",
+        "weather",
+        "temperature",
+        "rain",
+        "sunny",
+        "cloudy"
+      ],
+      "get_news": [
+        "新闻",
+        "头条",
+        "资讯",
+        "消息",
+        "报道",
+        "news",
+        "headline",
+        "科技",
+        "财经",
+        "体育",
+        "娱乐",
+        "健康",
+        "科学",
+        "技术"
+      ]
+    },
+    "connectors": [
+      "和",
+      "以及",
+      "还有",
+      "同时",
+      "and",
+      "also",
+      "plus"
+    ]
+  },
+  "logging": {
+    "enabled": true,
+    "level": "INFO",
+    "show_skill_calls": true,
+    "show_skill_results": true
+  }
+}
+

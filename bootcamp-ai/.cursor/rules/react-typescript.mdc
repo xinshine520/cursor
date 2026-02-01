@@ -1,0 +1,382 @@
+---
+description: React + TypeScript 前端开发规范
+globs: ["**/frontend/**/*.{ts,tsx}", "**/src/**/*.{ts,tsx}", "src/project-alpha/frontend/**/*.{ts,tsx}"]
+alwaysApply: false
+---
+
+# React + TypeScript 前端开发规范
+
+## 组件规范
+
+### 函数组件
+
+**必须使用函数组件和 Hooks**，不要使用类组件：
+
+```typescript
+// ✅ GOOD
+interface UserProfileProps {
+  userId: string;
+  onUpdate?: (user: User) => void;
+}
+
+export const UserProfile: React.FC<UserProfileProps> = ({ userId, onUpdate }) => {
+  const [user, setUser] = useState<User | null>(null);
+  
+  useEffect(() => {
+    // Fetch user data
+  }, [userId]);
+  
+  return <div>{/* Component JSX */}</div>;
+};
+
+// ❌ BAD - 不要使用类组件
+class UserProfile extends React.Component {
+  // ...
+}
+```
+
+### Props 类型定义
+
+**所有组件的 Props 必须定义接口类型**：
+
+```typescript
+// ✅ GOOD
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  variant?: 'primary' | 'secondary';
+  disabled?: boolean;
+}
+
+export const Button: React.FC<ButtonProps> = ({ label, onClick, variant = 'primary', disabled }) => {
+  return <button onClick={onClick} disabled={disabled}>{label}</button>;
+};
+
+// ❌ BAD - 不要使用 any
+export const Button = ({ label, onClick }: any) => {
+  // ...
+};
+```
+
+### 组件导出
+
+**使用命名导出**，便于代码提示和重构：
+
+```typescript
+// ✅ GOOD
+export const UserProfile: React.FC<UserProfileProps> = () => {
+  // ...
+};
+
+// ❌ BAD - 避免默认导出
+export default UserProfile;
+```
+
+## Hooks 使用规范
+
+### useState
+
+**使用类型参数明确状态类型**：
+
+```typescript
+// ✅ GOOD
+const [user, setUser] = useState<User | null>(null);
+const [count, setCount] = useState<number>(0);
+const [items, setItems] = useState<Item[]>([]);
+
+// ❌ BAD - 避免隐式 any
+const [user, setUser] = useState(null);
+```
+
+### useEffect
+
+**明确依赖项，避免不必要的重新渲染**：
+
+```typescript
+// ✅ GOOD
+useEffect(() => {
+  fetchUser(userId);
+}, [userId]); // 明确依赖
+
+// ❌ BAD - 缺少依赖项或依赖项过多
+useEffect(() => {
+  fetchUser(userId);
+}, []); // 缺少 userId 依赖
+```
+
+### 自定义 Hooks
+
+**提取可复用的逻辑到自定义 Hooks**：
+
+```typescript
+// ✅ GOOD
+export const useUser = (userId: string) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    fetchUser(userId).then(setUser).finally(() => setLoading(false));
+  }, [userId]);
+  
+  return { user, loading };
+};
+```
+
+## 样式规范
+
+### Tailwind CSS
+
+**优先使用 Tailwind CSS 工具类**：
+
+```typescript
+// ✅ GOOD
+<div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md">
+  <h2 className="text-xl font-bold text-gray-900">Title</h2>
+</div>
+
+// ❌ BAD - 避免内联样式（除非动态样式）
+<div style={{ display: 'flex', padding: '16px' }}>
+  {/* ... */}
+</div>
+```
+
+### Less 文件
+
+**复杂样式使用 Less 文件**：
+
+```typescript
+// Component.tsx
+import styles from './Component.less';
+
+export const Component: React.FC = () => {
+  return <div className={styles.container}>Content</div>;
+};
+
+// Component.less
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}
+```
+
+### 动态样式
+
+**使用 clsx 或 tailwind-merge 处理动态类名**：
+
+```typescript
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+// ✅ GOOD
+<div className={clsx('base-class', {
+  'active-class': isActive,
+  'disabled-class': isDisabled,
+})}>
+
+// ✅ GOOD - 使用 tailwind-merge 合并 Tailwind 类
+<div className={twMerge('p-4', isActive && 'bg-blue-500')}>
+```
+
+## 状态管理
+
+### 组件状态
+
+**使用 useState 管理组件内部状态**：
+
+```typescript
+const [isOpen, setIsOpen] = useState(false);
+const [formData, setFormData] = useState<FormData>({ name: '', email: '' });
+```
+
+### 服务器状态
+
+**使用 React Query 管理服务器状态**：
+
+```typescript
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
+// ✅ GOOD - 数据获取
+const { data, isLoading, error } = useQuery({
+  queryKey: ['tickets', filters],
+  queryFn: () => ticketApi.getTickets(filters),
+});
+
+// ✅ GOOD - 数据更新
+const mutation = useMutation({
+  mutationFn: ticketApi.createTicket,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['tickets'] });
+  },
+});
+```
+
+### 全局状态
+
+**使用 Context API 管理全局状态**：
+
+```typescript
+// ✅ GOOD
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+```
+
+## API 调用规范
+
+### 服务封装
+
+**所有 API 调用封装在 services/ 目录**：
+
+```typescript
+// services/ticketApi.ts
+import axios from 'axios';
+import { Ticket, CreateTicketDto } from '@/types/ticket';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+export const ticketApi = {
+  getTickets: async (filters?: TicketFilters): Promise<Ticket[]> => {
+    const response = await axios.get(`${API_BASE_URL}/tickets`, { params: filters });
+    return response.data;
+  },
+  
+  createTicket: async (data: CreateTicketDto): Promise<Ticket> => {
+    const response = await axios.post(`${API_BASE_URL}/tickets`, data);
+    return response.data;
+  },
+};
+```
+
+### 错误处理
+
+**统一处理 API 错误**：
+
+```typescript
+// ✅ GOOD
+const { data, error } = useQuery({
+  queryKey: ['tickets'],
+  queryFn: async () => {
+    try {
+      return await ticketApi.getTickets();
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        throw new Error(err.response?.data?.message || 'Failed to fetch tickets');
+      }
+      throw err;
+    }
+  },
+});
+```
+
+## 类型定义
+
+### 类型文件组织
+
+**类型定义放在 types/ 目录**：
+
+```typescript
+// types/ticket.ts
+export interface Ticket {
+  id: string;
+  title: string;
+  description: string;
+  status: TicketStatus;
+  labels: Label[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type TicketStatus = 'open' | 'in_progress' | 'closed';
+
+export interface CreateTicketDto {
+  title: string;
+  description: string;
+  labelIds: string[];
+}
+```
+
+### 类型导入
+
+**使用路径别名导入类型**：
+
+```typescript
+// ✅ GOOD
+import { Ticket, CreateTicketDto } from '@/types/ticket';
+import { Label } from '@/types/label';
+
+// ❌ BAD - 避免相对路径过深
+import { Ticket } from '../../../types/ticket';
+```
+
+## 文件组织
+
+### 组件文件结构
+
+```
+components/
+├── TicketCard/
+│   ├── TicketCard.tsx      # 组件代码
+│   ├── TicketCard.less     # 样式文件
+│   └── index.ts            # 导出文件
+```
+
+### 导出文件
+
+**使用 index.ts 统一导出**：
+
+```typescript
+// components/TicketCard/index.ts
+export { TicketCard } from './TicketCard';
+export type { TicketCardProps } from './TicketCard';
+```
+
+## 性能优化
+
+### React.memo
+
+**对频繁渲染的组件使用 memo**：
+
+```typescript
+export const ExpensiveComponent = React.memo<ComponentProps>(({ data }) => {
+  // Component implementation
+});
+```
+
+### useMemo 和 useCallback
+
+**合理使用 useMemo 和 useCallback**：
+
+```typescript
+// ✅ GOOD - 计算昂贵的值
+const filteredItems = useMemo(() => {
+  return items.filter(item => item.status === 'active');
+}, [items]);
+
+// ✅ GOOD - 稳定函数引用
+const handleClick = useCallback(() => {
+  onClick(id);
+}, [id, onClick]);
+```
+
+## 禁止事项
+
+- ❌ 不要使用 `any` 类型（除非绝对必要）
+- ❌ 不要使用类组件
+- ❌ 不要在前端硬编码 API URL
+- ❌ 不要忽略 TypeScript 错误
+- ❌ 不要使用内联样式（除非动态样式）
+- ❌ 不要直接操作 DOM（使用 React 方式）
+- ❌ 不要在组件中直接调用 API（使用 services）

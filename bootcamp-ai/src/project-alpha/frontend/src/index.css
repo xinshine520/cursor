@@ -1,0 +1,308 @@
+@import './styles/apple-theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply antialiased;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    background: var(--aliyun-gray-50);
+  }
+
+  body {
+    background: var(--aliyun-gray-50);
+    color: var(--aliyun-ink);
+    min-height: 100vh;
+    font-family: var(--aliyun-font-family-cn), var(--aliyun-font-family);
+    font-feature-settings: "kern" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: var(--aliyun-text-base);
+    line-height: var(--aliyun-leading-normal);
+    letter-spacing: var(--aliyun-tracking-normal);
+    display: flex;
+    justify-content: center;
+  }
+
+  #root {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Alibaba Cloud Typography System - 阿里云字体系统 */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: var(--aliyun-tracking-tight);
+    color: var(--aliyun-ink);
+    margin: 0;
+  }
+
+  h1 {
+    font-size: var(--aliyun-text-4xl);
+    line-height: var(--aliyun-leading-tight);
+  }
+
+  h2 {
+    font-size: var(--aliyun-text-3xl);
+    line-height: var(--aliyun-leading-tight);
+  }
+
+  h3 {
+    font-size: var(--aliyun-text-2xl);
+    line-height: var(--aliyun-leading-tight);
+  }
+
+  h4 {
+    font-size: var(--aliyun-text-xl);
+    line-height: var(--aliyun-leading-normal);
+  }
+
+  h5 {
+    font-size: var(--aliyun-text-lg);
+    line-height: var(--aliyun-leading-normal);
+  }
+
+  h6 {
+    font-size: var(--aliyun-text-base);
+    line-height: var(--aliyun-leading-normal);
+  }
+
+  /* Alibaba Cloud Interactive Elements - 阿里云交互元素 */
+  ::selection {
+    background: var(--aliyun-primary-light);
+    color: var(--aliyun-ink);
+  }
+
+  /* Alibaba Cloud Scrollbars - 阿里云滚动条 */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--aliyun-gray-100);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--aliyun-gray-400);
+    border-radius: var(--aliyun-radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--aliyun-gray-500);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: var(--aliyun-gray-100);
+  }
+}
+
+@layer utilities {
+  /* Alibaba Cloud Animation Utilities - 阿里云动画工具类 */
+  .aliyun-fade-in {
+    animation: aliyun-fade-in var(--aliyun-transition-base);
+  }
+
+  .aliyun-scale-in {
+    animation: aliyun-scale-in var(--aliyun-transition-spring);
+  }
+
+  .aliyun-slide-up {
+    animation: aliyun-slide-up var(--aliyun-transition-base);
+  }
+
+  .aliyun-slide-down {
+    animation: aliyun-slide-down var(--aliyun-transition-base);
+  }
+
+  .aliyun-slide-right {
+    animation: aliyun-slide-right var(--aliyun-transition-base);
+  }
+
+  .aliyun-slide-left {
+    animation: aliyun-slide-left var(--aliyun-transition-base);
+  }
+
+  /* Alibaba Cloud Surface Utilities - 阿里云表面工具类 */
+  .aliyun-surface-elevated {
+    box-shadow: var(--aliyun-shadow-lg);
+  }
+
+  .aliyun-surface-elevated:hover {
+    box-shadow: var(--aliyun-shadow-xl);
+  }
+
+  /* Alibaba Cloud Typography Utilities - 阿里云字体工具类 */
+  .aliyun-text-heading {
+    @apply aliyun-text-heading-3;
+  }
+
+  .aliyun-text-subheading {
+    @apply aliyun-text-heading-4;
+  }
+
+  .aliyun-text-body {
+    @apply aliyun-text-body;
+  }
+
+  .aliyun-text-caption {
+    @apply aliyun-text-caption;
+  }
+
+  /* Alibaba Cloud Grid System - 阿里云栅格系统 */
+  .aliyun-grid {
+    display: grid;
+    gap: var(--aliyun-grid-6);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .aliyun-grid-tickets {
+    display: grid;
+    gap: var(--aliyun-grid-6);
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+
+  /* Alibaba Cloud Spacing Utilities - 阿里云间距工具类 */
+  .aliyun-space-y-2 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: var(--aliyun-grid-2);
+  }
+
+  .aliyun-space-y-3 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: var(--aliyun-grid-3);
+  }
+
+  .aliyun-space-y-4 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: var(--aliyun-grid-4);
+  }
+
+  .aliyun-space-y-6 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: var(--aliyun-grid-6);
+  }
+
+  .aliyun-space-y-8 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: var(--aliyun-grid-8);
+  }
+
+  .aliyun-space-x-2 > :not([hidden]) ~ :not([hidden]) {
+    margin-left: var(--aliyun-grid-2);
+  }
+
+  .aliyun-space-x-3 > :not([hidden]) ~ :not([hidden]) {
+    margin-left: var(--aliyun-grid-3);
+  }
+
+  .aliyun-space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    margin-left: var(--aliyun-grid-4);
+  }
+
+  .aliyun-space-x-6 > :not([hidden]) ~ :not([hidden]) {
+    margin-left: var(--aliyun-grid-6);
+  }
+
+  .aliyun-space-x-8 > :not([hidden]) ~ :not([hidden]) {
+    margin-left: var(--aliyun-grid-8);
+  }
+
+  /* Alibaba Cloud Loading States - 阿里云加载状态 */
+  .aliyun-skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--aliyun-gray-200) 25%,
+      var(--aliyun-gray-300) 50%,
+      var(--aliyun-gray-200) 75%
+    );
+    background-size: 200% 100%;
+    animation: aliyun-shimmer 1.5s ease-in-out infinite;
+    border-radius: var(--aliyun-radius-md);
+  }
+
+  /* Alibaba Cloud Priority Color Utilities - 阿里云优先级颜色工具类 */
+  .aliyun-bg-priority-critical {
+    background: var(--aliyun-error-light);
+    color: var(--aliyun-error);
+  }
+
+  .aliyun-bg-priority-high {
+    background: var(--aliyun-warning-light);
+    color: var(--aliyun-warning);
+  }
+
+  .aliyun-bg-priority-medium {
+    background: var(--aliyun-warning-light);
+    color: var(--aliyun-warning);
+  }
+
+  .aliyun-bg-priority-low {
+    background: var(--aliyun-success-light);
+    color: var(--aliyun-success);
+  }
+
+  /* Alibaba Cloud Status States - 阿里云状态 */
+  .aliyun-status-completed {
+    opacity: 0.6;
+  }
+
+  .aliyun-status-completed .aliyun-ticket-title {
+    text-decoration: line-through;
+  }
+
+  /* Alibaba Cloud Container - 阿里云容器 */
+  .aliyun-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 var(--aliyun-grid-6);
+  }
+
+  /* Alibaba Cloud Responsive Design - 阿里云响应式设计 */
+  @media (max-width: 768px) {
+    .aliyun-grid-tickets {
+      grid-template-columns: 1fr;
+      gap: var(--aliyun-grid-4);
+    }
+
+    .aliyun-responsive-padding {
+      padding: var(--aliyun-grid-4);
+    }
+
+    .aliyun-responsive-text {
+      font-size: var(--aliyun-text-sm);
+    }
+
+    .aliyun-container {
+      padding: 0 var(--aliyun-grid-4);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .aliyun-grid-tickets {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1920px) {
+    body {
+      font-size: calc(var(--aliyun-text-base) * 1.05);
+    }
+
+    .aliyun-grid-tickets {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .aliyun-container {
+      padding: 0 var(--aliyun-grid-8);
+    }
+  }
+}

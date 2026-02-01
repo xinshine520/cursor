@@ -1,0 +1,129 @@
+.aliyun-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--aliyun-grid-2);
+  font-family: var(--aliyun-font-family-cn), var(--aliyun-font-family);
+  font-size: var(--aliyun-text-base);
+  font-weight: 400;
+  line-height: var(--aliyun-leading-normal);
+  letter-spacing: var(--aliyun-tracking-normal);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--aliyun-transition-fast);
+  border: 1px solid transparent;
+  outline: none;
+  white-space: nowrap;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &.aliyun-btn-sm {
+    height: 32px;
+    padding: 0 var(--aliyun-grid-3);
+    font-size: var(--aliyun-text-sm);
+  }
+
+  &.aliyun-btn-md {
+    height: 40px;
+    padding: 0 var(--aliyun-grid-4);
+    font-size: var(--aliyun-text-base);
+  }
+
+  &.aliyun-btn-lg {
+    height: 48px;
+    padding: 0 var(--aliyun-grid-6);
+    font-size: var(--aliyun-text-lg);
+  }
+
+  &.aliyun-btn-primary {
+    background: var(--aliyun-primary);
+    border-color: var(--aliyun-primary);
+    color: var(--aliyun-paper);
+    box-shadow: var(--aliyun-shadow-sm);
+
+    &:hover:not(:disabled) {
+      background: var(--aliyun-primary-hover);
+      border-color: var(--aliyun-primary-hover);
+      box-shadow: var(--aliyun-shadow-md);
+      transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled) {
+      background: var(--aliyun-primary-active);
+      border-color: var(--aliyun-primary-active);
+      box-shadow: var(--aliyun-shadow-sm);
+      transform: translateY(0);
+    }
+  }
+
+  &.aliyun-btn-secondary {
+    background: var(--aliyun-paper);
+    border-color: var(--aliyun-gray-300);
+    color: var(--aliyun-ink-light);
+
+    &:hover:not(:disabled) {
+      border-color: var(--aliyun-primary);
+      color: var(--aliyun-primary);
+    }
+
+    &:active:not(:disabled) {
+      background: var(--aliyun-gray-50);
+    }
+  }
+
+  &.aliyun-btn-ghost {
+    background: transparent;
+    border-color: var(--aliyun-primary);
+    color: var(--aliyun-primary);
+
+    &:hover:not(:disabled) {
+      background: var(--aliyun-primary-light);
+    }
+
+    &:active:not(:disabled) {
+      background: var(--aliyun-primary-lighter);
+    }
+  }
+
+  .aliyun-btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .aliyun-btn-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .aliyun-btn-loading {
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: aliyun-spin 0.6s linear infinite;
+    opacity: 0.6;
+  }
+
+  /* Focus ring */
+  &.aliyun-focus-ring:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--aliyun-primary-light);
+  }
+}
+
+@keyframes aliyun-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

@@ -1,0 +1,275 @@
+/* Alibaba Cloud Empty State System */
+.aliyun-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--aliyun-grid-20) var(--aliyun-grid-6);
+  text-align: center;
+  min-height: 400px;
+  position: relative;
+
+  /* Alibaba Cloud subtle background pattern */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(
+      circle,
+      rgba(255, 106, 0, 0.02) 0%,
+      rgba(255, 106, 0, 0.01) 40%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    pointer-events: none;
+    animation: aliyun-empty-pulse 4s var(--aliyun-ease-in-out) infinite;
+  }
+
+  .aliyun-empty-icon {
+    color: var(--aliyun-primary);
+    opacity: 0.4;
+    margin-bottom: var(--aliyun-grid-8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: aliyun-empty-icon-float 3s var(--aliyun-ease-in-out) infinite;
+
+    /* Alibaba Cloud icon background glow */
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(
+        circle,
+        rgba(255, 106, 0, 0.1) 0%,
+        rgba(255, 106, 0, 0.05) 50%,
+        transparent 70%
+      );
+      border-radius: 50%;
+      pointer-events: none;
+      animation: aliyun-empty-glow 3s var(--aliyun-ease-in-out) infinite;
+    }
+
+    svg {
+      width: 96px;
+      height: 96px;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 4px 12px rgba(255, 106, 0, 0.1));
+      transition: all var(--aliyun-transition-base);
+    }
+
+    /* Alibaba Cloud icon interaction */
+    &:hover {
+      opacity: 0.6;
+      transform: scale(1.05);
+
+      svg {
+        filter: drop-shadow(0 8px 24px rgba(255, 106, 0, 0.2));
+      }
+    }
+  }
+
+  .aliyun-empty-content {
+    margin-bottom: var(--aliyun-grid-8);
+    position: relative;
+    z-index: 1;
+    animation: aliyun-empty-content-fade-in 0.8s var(--aliyun-ease-out) both;
+
+    .aliyun-empty-title {
+      font-size: var(--aliyun-text-3xl);
+      font-weight: 600;
+      color: var(--aliyun-ink-light);
+      letter-spacing: var(--aliyun-tracking-tight);
+      line-height: var(--aliyun-leading-tight);
+      margin: 0 0 var(--aliyun-grid-4) 0;
+      transition: color var(--aliyun-transition-fast);
+    }
+
+    .aliyun-empty-description {
+      font-size: var(--aliyun-text-lg);
+      color: var(--aliyun-ink-lighter);
+      line-height: var(--aliyun-leading-relaxed);
+      max-width: 520px;
+      margin: 0 auto;
+      transition: color var(--aliyun-transition-fast);
+      font-weight: 400;
+    }
+
+    /* Alibaba Cloud hover effect for content */
+    &:hover {
+      .aliyun-empty-title {
+        color: var(--aliyun-primary);
+      }
+
+      .aliyun-empty-description {
+        color: var(--aliyun-ink-light);
+      }
+    }
+  }
+
+  .aliyun-empty-button {
+    position: relative;
+    z-index: 1;
+    animation: aliyun-empty-button-fade-in 1s var(--aliyun-ease-out) both;
+    animation-delay: 0.2s;
+
+    /* Alibaba Cloud button container */
+    &::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(135deg, var(--aliyun-primary), var(--aliyun-primary-hover));
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity var(--aliyun-transition-base);
+      z-index: -1;
+    }
+
+    &:hover::before {
+      opacity: 0.1;
+    }
+  }
+}
+
+/* Alibaba Cloud Empty State Animations */
+@keyframes aliyun-empty-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes aliyun-empty-icon-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes aliyun-empty-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes aliyun-empty-content-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aliyun-empty-button-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Alibaba Cloud responsive empty state */
+@media (max-width: 768px) {
+  .aliyun-empty {
+    padding: var(--aliyun-grid-16) var(--aliyun-grid-4);
+    min-height: 350px;
+
+    &::before {
+      width: 400px;
+      height: 400px;
+    }
+
+    .aliyun-empty-icon {
+      margin-bottom: var(--aliyun-grid-6);
+
+      svg {
+        width: 72px;
+        height: 72px;
+      }
+
+      &::before {
+        width: 90px;
+        height: 90px;
+      }
+    }
+
+    .aliyun-empty-content {
+      margin-bottom: var(--aliyun-grid-6);
+
+      .aliyun-empty-title {
+        font-size: var(--aliyun-text-2xl);
+        margin-bottom: var(--aliyun-grid-3);
+      }
+
+      .aliyun-empty-description {
+        font-size: var(--aliyun-text-base);
+        max-width: 400px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .aliyun-empty {
+    padding: var(--aliyun-grid-12) var(--aliyun-grid-3);
+    min-height: 300px;
+
+    .aliyun-empty-icon {
+      margin-bottom: var(--aliyun-grid-4);
+
+      svg {
+        width: 64px;
+        height: 64px;
+      }
+
+      &::before {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    .aliyun-empty-content {
+      margin-bottom: var(--aliyun-grid-4);
+
+      .aliyun-empty-title {
+        font-size: var(--aliyun-text-xl);
+      }
+
+      .aliyun-empty-description {
+        font-size: var(--aliyun-text-sm);
+        max-width: 320px;
+      }
+    }
+  }
+}
+

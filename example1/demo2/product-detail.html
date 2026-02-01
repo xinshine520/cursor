@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="产品详情 - TechCorp">
+    <title>产品详情 - TechCorp</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 产品详情页特定样式 */
+        .product-detail {
+            padding: 120px 0 80px;
+            background: var(--bg-white);
+        }
+
+        .product-detail-header {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+
+        .breadcrumb span {
+            color: var(--text-secondary);
+        }
+
+        .product-detail-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .product-detail-image {
+            position: sticky;
+            top: 100px;
+            width: 100%;
+            height: 500px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-detail-image .product-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .product-detail-info {
+            padding: 20px 0;
+        }
+
+        .product-detail-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .product-detail-subtitle {
+            font-size: 24px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .product-detail-description {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 40px;
+        }
+
+        .product-features {
+            margin-bottom: 40px;
+        }
+
+        .product-features h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            background: #e8e8ed;
+            transform: translateX(8px);
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-content p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .product-specs {
+            margin-bottom: 40px;
+        }
+
+        .product-specs h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .specs-table td {
+            padding: 16px 0;
+            font-size: 15px;
+        }
+
+        .specs-table td:first-child {
+            font-weight: 600;
+            color: var(--text-primary);
+            width: 40%;
+        }
+
+        .specs-table td:last-child {
+            color: var(--text-secondary);
+        }
+
+        .product-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .product-detail-section {
+            margin-top: 80px;
+            padding-top: 80px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .product-detail-section h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+        }
+
+        .product-detail-section p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .product-detail-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-detail-section ul li {
+            padding: 12px 0;
+            padding-left: 32px;
+            position: relative;
+            font-size: 17px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .product-detail-section ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .product-detail-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .product-detail-image {
+                position: static;
+                height: 300px;
+            }
+
+            .product-detail-title {
+                font-size: 36px;
+            }
+
+            .product-detail-subtitle {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <a href="index.html" style="text-decoration: none; color: inherit;">TechCorp</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#home">首页</a></li>
+                <li><a href="index.html#products">产品</a></li>
+                <li><a href="index.html#services">服务</a></li>
+                <li><a href="index.html#about">关于</a></li>
+                <li><a href="index.html#contact">联系</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="菜单">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 产品详情内容 -->
+    <section class="product-detail">
+        <div class="product-detail-header">
+            <div class="breadcrumb">
+                <a href="index.html">首页</a>
+                <span>/</span>
+                <a href="index.html#products">产品</a>
+                <span>/</span>
+                <span id="breadcrumb-product">产品详情</span>
+            </div>
+        </div>
+
+        <div class="product-detail-content">
+            <div class="product-detail-image">
+                <div class="product-placeholder" id="product-image"></div>
+            </div>
+
+            <div class="product-detail-info">
+                <h1 class="product-detail-title" id="product-title">产品名称</h1>
+                <p class="product-detail-subtitle" id="product-subtitle">产品副标题</p>
+                <p class="product-detail-description" id="product-description">产品详细描述</p>
+
+                <div class="product-features">
+                    <h3>核心特性</h3>
+                    <div id="product-features-list">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <div class="product-specs">
+                    <h3>技术规格</h3>
+                    <table class="specs-table" id="product-specs">
+                        <!-- 动态生成 -->
+                    </table>
+                </div>
+
+                <div class="product-cta">
+                    <a href="index.html#contact" class="btn btn-primary">联系咨询</a>
+                    <a href="index.html#products" class="btn btn-secondary">返回产品</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="product-detail-section">
+                <h2>产品详情</h2>
+                <div id="product-detail-content">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>TechCorp</h4>
+                    <p>创新科技，引领未来</p>
+                </div>
+                <div class="footer-section">
+                    <h4>产品</h4>
+                    <ul>
+                        <li><a href="product-detail.html?product=platform">智能平台</a></li>
+                        <li><a href="product-detail.html?product=cloud">云服务</a></li>
+                        <li><a href="product-detail.html?product=analytics">数据分析</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>公司</h4>
+                    <ul>
+                        <li><a href="index.html#about">关于我们</a></li>
+                        <li><a href="index.html#services">服务</a></li>
+                        <li><a href="index.html#contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>关注我们</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="微博">微博</a>
+                        <a href="#" aria-label="微信">微信</a>
+                        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TechCorp. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // 产品数据
+        const products = {
+            platform: {
+                title: '智能平台',
+                subtitle: '强大的AI驱动平台，让工作更高效',
+                description: '智能平台是一个基于人工智能技术的企业级解决方案，通过先进的机器学习和数据分析能力，帮助企业实现业务流程自动化、决策智能化和运营效率最大化。',
+                imageClass: 'product-1',
+                features: [
+                    {
+                        icon: '🤖',
+                        title: 'AI 智能决策',
+                        description: '基于深度学习的智能决策引擎，提供精准的业务建议和预测分析'
+                    },
+                    {
+                        icon: '⚡',
+                        title: '实时处理',
+                        description: '毫秒级响应速度，支持大规模并发处理，确保业务连续性'
+                    },
+                    {
+                        icon: '🔒',
+                        title: '企业级安全',
+                        description: '多重加密保护，符合国际安全标准，保障数据安全'
+                    },
+                    {
+                        icon: '📊',
+                        title: '可视化分析',
+                        description: '直观的数据可视化界面，让复杂数据一目了然'
+                    }
+                ],
+                specs: [
+                    ['处理能力', '支持百万级并发请求'],
+                    ['响应时间', '平均响应时间 < 100ms'],
+                    ['可用性', '99.99% 服务可用性保证'],
+                    ['扩展性', '支持水平扩展，弹性伸缩'],
+                    ['兼容性', '支持主流操作系统和数据库']
+                ],
+                detail: {
+                    intro: '智能平台是 TechCorp 的核心产品，专为现代企业设计，提供全方位的智能化解决方案。',
+                    highlights: [
+                        '采用最新的 AI 技术，提供智能化的业务决策支持',
+                        '支持多种业务场景，包括客户服务、销售预测、风险控制等',
+                        '提供完整的 API 接口，易于集成到现有系统',
+                        '配备专业的技术支持团队，7x24 小时在线服务',
+                        '持续更新迭代，紧跟技术发展趋势'
+                    ],
+                    useCases: [
+                        '金融行业：风险评估、欺诈检测、智能客服',
+                        '零售行业：库存优化、需求预测、个性化推荐',
+                        '制造业：质量检测、预测性维护、供应链优化',
+                        '医疗行业：辅助诊断、药物研发、健康管理'
+                    ]
+                }
+            },
+            cloud: {
+                title: '云服务',
+                subtitle: '安全可靠的云端解决方案',
+                description: 'TechCorp 云服务提供企业级的云计算基础设施，包括计算、存储、网络等全方位服务。采用业界领先的技术架构，确保高可用性、高性能和高安全性。',
+                imageClass: 'product-2',
+                features: [
+                    {
+                        icon: '☁️',
+                        title: '弹性伸缩',
+                        description: '根据业务需求自动调整资源，按需付费，降低成本'
+                    },
+                    {
+                        icon: '🌐',
+                        title: '全球部署',
+                        description: '覆盖全球的数据中心，确保低延迟访问体验'
+                    },
+                    {
+                        icon: '🛡️',
+                        title: '多重备份',
+                        description: '自动备份机制，数据安全有保障，支持快速恢复'
+                    },
+                    {
+                        icon: '📈',
+                        title: '监控告警',
+                        description: '实时监控系统状态，异常自动告警，及时响应'
+                    }
+                ],
+                specs: [
+                    ['数据中心', '全球 50+ 数据中心节点'],
+                    ['SLA', '99.9% 服务可用性保证'],
+                    ['存储', '支持 PB 级数据存储'],
+                    ['网络', '全球骨干网络，低延迟传输'],
+                    ['备份', '自动备份，支持多版本恢复']
+                ],
+                detail: {
+                    intro: 'TechCorp 云服务致力于为企业提供稳定、安全、高效的云计算服务，帮助企业快速上云，实现数字化转型。',
+                    highlights: [
+                        '采用容器化技术，支持快速部署和扩展',
+                        '提供完整的 DevOps 工具链，简化运维管理',
+                        '支持混合云架构，灵活满足不同业务需求',
+                        '符合国际安全标准，通过多项安全认证',
+                        '提供专业的技术支持和咨询服务'
+                    ],
+                    useCases: [
+                        '企业应用部署：Web 应用、移动应用后端',
+                        '大数据处理：数据仓库、实时分析',
+                        'AI 训练：机器学习模型训练和推理',
+                        '灾备方案：数据备份和灾难恢复'
+                    ]
+                }
+            },
+            analytics: {
+                title: '数据分析',
+                subtitle: '深度洞察，驱动业务增长',
+                description: '数据分析平台提供强大的数据处理和分析能力，帮助企业从海量数据中挖掘价值，发现业务机会，优化运营策略，实现数据驱动的业务增长。',
+                imageClass: 'product-3',
+                features: [
+                    {
+                        icon: '📊',
+                        title: '多维分析',
+                        description: '支持多维度数据分析，从不同角度洞察业务状况'
+                    },
+                    {
+                        icon: '🔍',
+                        title: '智能挖掘',
+                        description: 'AI 驱动的数据挖掘，自动发现数据中的规律和趋势'
+                    },
+                    {
+                        icon: '📱',
+                        title: '移动端支持',
+                        description: '支持移动端访问，随时随地查看数据分析结果'
+                    },
+                    {
+                        icon: '🔄',
+                        title: '实时更新',
+                        description: '数据实时同步，确保分析结果的时效性和准确性'
+                    }
+                ],
+                specs: [
+                    ['数据源', '支持 100+ 种数据源连接'],
+                    ['处理速度', '支持 TB 级数据秒级查询'],
+                    ['可视化', '50+ 种图表类型，灵活定制'],
+                    ['用户数', '支持无限用户并发访问'],
+                    ['API', '完整的 RESTful API 接口']
+                ],
+                detail: {
+                    intro: '数据分析平台是 TechCorp 为企业打造的一站式数据分析解决方案，帮助企业实现数据价值最大化。',
+                    highlights: [
+                        '支持多种数据源，包括数据库、API、文件等',
+                        '提供拖拽式报表设计，无需编程即可创建报表',
+                        '内置多种分析模型，支持预测分析和趋势分析',
+                        '支持数据导出和分享，便于团队协作',
+                        '提供数据治理功能，确保数据质量和安全'
+                    ],
+                    useCases: [
+                        '业务分析：销售分析、客户分析、运营分析',
+                        '财务分析：成本分析、利润分析、预算管理',
+                        '市场分析：市场趋势、竞品分析、用户画像',
+                        '运营优化：流程优化、效率提升、成本控制'
+                    ]
+                }
+            }
+        };
+
+        // 获取 URL 参数
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // 加载产品详情
+        function loadProductDetail() {
+            const productId = getUrlParameter('product') || 'platform';
+            const product = products[productId];
+
+            if (!product) {
+                // 如果产品不存在，跳转到首页
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // 更新页面标题
+            document.title = `${product.title} - TechCorp`;
+            document.querySelector('meta[name="description"]').content = product.subtitle;
+
+            // 更新面包屑
+            document.getElementById('breadcrumb-product').textContent = product.title;
+
+            // 更新产品图片
+            const productImage = document.getElementById('product-image');
+            productImage.className = `product-placeholder ${product.imageClass}`;
+
+            // 更新产品信息
+            document.getElementById('product-title').textContent = product.title;
+            document.getElementById('product-subtitle').textContent = product.subtitle;
+            document.getElementById('product-description').textContent = product.description;
+
+            // 更新特性列表
+            const featuresList = document.getElementById('product-features-list');
+            featuresList.innerHTML = product.features.map(feature => `
+                <div class="feature-item">
+                    <span class="feature-icon">${feature.icon}</span>
+                    <div class="feature-content">
+                        <h4>${feature.title}</h4>
+                        <p>${feature.description}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // 更新技术规格
+            const specsTable = document.getElementById('product-specs');
+            specsTable.innerHTML = product.specs.map(spec => `
+                <tr>
+                    <td>${spec[0]}</td>
+                    <td>${spec[1]}</td>
+                </tr>
+            `).join('');
+
+            // 更新详情内容
+            const detailContent = document.getElementById('product-detail-content');
+            detailContent.innerHTML = `
+                <p>${product.detail.intro}</p>
+                <h3 style="font-size: 24px; font-weight: 600; margin: 32px 0 16px;">核心优势</h3>
+                <ul>
+                    ${product.detail.highlights.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+                <h3 style="font-size: 24px; font-weight: 600; margin: 32px 0 16px;">应用场景</h3>
+                <ul>
+                    ${product.detail.useCases.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+            `;
+        }
+
+        // 页面加载时执行
+        document.addEventListener('DOMContentLoaded', loadProductDetail);
+    </script>
+</body>
+</html>
+

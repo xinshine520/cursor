@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"claudeCode.useTerminal": true,
+		"claudeCode.allowDangerouslySkipPermissions": true,
+		"claudeCode.environmentVariables": [
+			
+		],
+		"claudeCode.useCtrlEnterToSend": true
+	}
+}

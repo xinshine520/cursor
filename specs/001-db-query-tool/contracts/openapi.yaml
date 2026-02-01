@@ -1,0 +1,428 @@
+openapi: 3.1.0
+info:
+  title: DB-Query API
+  description: Database query tool API for connection management, metadata extraction, and SQL execution
+  version: 1.0.0
+  
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+
+tags:
+  - name: Connections
+    description: Database connection management
+  - name: Metadata
+    description: Database schema metadata
+  - name: Queries
+    description: SQL query execution and generation
+
+paths:
+  /connections:
+    get:
+      tags: [Connections]
+      summary: List all saved connections
+      operationId: listConnections
+      responses:
+        '200':
+          description: List of connections
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connection'
+    
+    post:
+      tags: [Connections]
+      summary: Create a new database connection
+      operationId: createConnection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectionCreate'
+      responses:
+        '201':
+          description: Connection created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionWithMetadata'
+        '400':
+          description: Invalid connection URL or connection failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Connection name already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /connections/{connectionId}:
+    parameters:
+      - $ref: '#/components/parameters/ConnectionId'
+    
+    get:
+      tags: [Connections]
+      summary: Get a specific connection
+      operationId: getConnection
+      responses:
+        '200':
+          description: Connection details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    
+    delete:
+      tags: [Connections]
+      summary: Delete a connection and its cached metadata
+      operationId: deleteConnection
+      responses:
+        '204':
+          description: Connection deleted successfully
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /connections/{connectionId}/metadata:
+    parameters:
+      - $ref: '#/components/parameters/ConnectionId'
+    
+    get:
+      tags: [Metadata]
+      summary: Get cached metadata for a connection
+      operationId: getMetadata
+      responses:
+        '200':
+          description: Database metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseMetadata'
+        '404':
+          description: Connection or metadata not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /connections/{connectionId}/metadata/refresh:
+    parameters:
+      - $ref: '#/components/parameters/ConnectionId'
+    
+    post:
+      tags: [Metadata]
+      summary: Re-extract metadata from the database
+      operationId: refreshMetadata
+      responses:
+        '200':
+          description: Metadata refreshed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseMetadata'
+        '400':
+          description: Connection failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /connections/{connectionId}/query:
+    parameters:
+      - $ref: '#/components/parameters/ConnectionId'
+    
+    post:
+      tags: [Queries]
+      summary: Execute a SQL query
+      operationId: executeQuery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Query executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResult'
+        '400':
+          description: Invalid SQL or forbidden statement
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /connections/{connectionId}/query/generate:
+    parameters:
+      - $ref: '#/components/parameters/ConnectionId'
+    
+    post:
+      tags: [Queries]
+      summary: Generate SQL from natural language
+      operationId: generateQuery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NaturalLanguageQueryRequest'
+      responses:
+        '200':
+          description: SQL generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedQuery'
+        '400':
+          description: Could not generate valid SQL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  parameters:
+    ConnectionId:
+      name: connectionId
+      in: path
+      required: true
+      description: Unique identifier of the connection
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    Connection:
+      type: object
+      required: [id, name, createdAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+        name:
+          type: string
+          description: User-provided display name
+          minLength: 1
+          maxLength: 100
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp (UTC)
+        lastAccessedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: Last successful connection timestamp (UTC)
+
+    ConnectionCreate:
+      type: object
+      required: [name, connectionUrl]
+      properties:
+        name:
+          type: string
+          description: Display name for the connection
+          minLength: 1
+          maxLength: 100
+        connectionUrl:
+          type: string
+          description: PostgreSQL connection URL
+          pattern: '^postgresql://.*'
+          example: 'postgresql://user:password@localhost:5432/mydb'
+
+    ConnectionWithMetadata:
+      allOf:
+        - $ref: '#/components/schemas/Connection'
+        - type: object
+          properties:
+            metadata:
+              $ref: '#/components/schemas/DatabaseMetadata'
+
+    DatabaseMetadata:
+      type: object
+      required: [id, connectionId, tables, extractedAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        connectionId:
+          type: string
+          format: uuid
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableInfo'
+        extractedAt:
+          type: string
+          format: date-time
+
+    TableInfo:
+      type: object
+      required: [name, type, columns]
+      properties:
+        name:
+          type: string
+          description: Table or view name
+        type:
+          type: string
+          enum: [table, view]
+        columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnInfo'
+        rowCountEstimate:
+          type: integer
+          nullable: true
+          description: Approximate row count
+
+    ColumnInfo:
+      type: object
+      required: [name, dataType, isNullable, isPrimaryKey]
+      properties:
+        name:
+          type: string
+        dataType:
+          type: string
+          description: PostgreSQL data type
+        isNullable:
+          type: boolean
+        isPrimaryKey:
+          type: boolean
+        foreignKey:
+          $ref: '#/components/schemas/ForeignKeyRef'
+          nullable: true
+        defaultValue:
+          type: string
+          nullable: true
+
+    ForeignKeyRef:
+      type: object
+      required: [table, column]
+      properties:
+        table:
+          type: string
+        column:
+          type: string
+
+    QueryRequest:
+      type: object
+      required: [sql]
+      properties:
+        sql:
+          type: string
+          description: SQL query to execute (SELECT only)
+          minLength: 1
+
+    NaturalLanguageQueryRequest:
+      type: object
+      required: [prompt]
+      properties:
+        prompt:
+          type: string
+          description: Natural language description of the desired query
+          minLength: 1
+          maxLength: 1000
+
+    QueryResult:
+      type: object
+      required: [columns, rows, rowCount, truncated, durationMs]
+      properties:
+        columns:
+          type: array
+          items:
+            type: string
+          description: Column names in result order
+        rows:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+          description: Result rows as objects
+        rowCount:
+          type: integer
+          description: Number of rows returned
+        truncated:
+          type: boolean
+          description: Whether results were truncated at LIMIT
+        durationMs:
+          type: integer
+          description: Query execution time in milliseconds
+
+    GeneratedQuery:
+      type: object
+      required: [sql]
+      properties:
+        sql:
+          type: string
+          description: Generated SQL query
+        explanation:
+          type: string
+          nullable: true
+          description: Optional explanation of the generated query
+
+    ErrorDetail:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          description: Error code for programmatic handling
+          enum:
+            - CONNECTION_FAILED
+            - INVALID_SQL
+            - FORBIDDEN_STATEMENT
+            - QUERY_TIMEOUT
+            - NLQ_FAILED
+            - NOT_FOUND
+            - DUPLICATE_NAME
+            - VALIDATION_ERROR
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          additionalProperties: true
+          description: Additional error context
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorDetail'

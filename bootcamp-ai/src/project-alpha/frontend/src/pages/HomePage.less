@@ -1,0 +1,78 @@
+.apple-homepage-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  
+  .apple-search-filters {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 32px;
+    width: 100%;
+    flex-wrap: nowrap;
+    
+    .apple-search-wrapper {
+      flex: 1;
+      min-width: 0;
+      max-width: 100%;
+    }
+  }
+  
+  .apple-filters {
+    display: flex;
+    gap: 12px;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-shrink: 0;
+    white-space: nowrap;
+    
+    .apple-filter-select {
+      width: 140px;
+    }
+  }
+  
+  .apple-tickets-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    margin-top: 0;
+    align-items: start;
+    
+    .apple-ticket-col {
+      animation: fade-in 400ms cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      min-height: 0;
+      
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .apple-ticket-card {
+        width: 100%;
+        height: 280px;
+        min-height: 280px;
+        max-height: 280px;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+  
+  .apple-pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 48px;
+    margin-top: 24px;
+  }
+}
+

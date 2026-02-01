@@ -1,0 +1,8 @@
+# Playwright Test Configuration Example
+# Copy this to .playwrightrc or use playwright.config.ts
+
+# Base URL for tests
+PLAYWRIGHT_TEST_BASE_URL=http://localhost:5173
+
+# CI mode (set to true in CI environments)
+CI=false

@@ -1,0 +1,107 @@
+.apple-sidebar {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  
+  .apple-sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: none;
+    background: transparent;
+    padding: 20px;
+    
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 3px;
+      
+      &:hover {
+        background: rgba(0, 0, 0, 0.15);
+      }
+    }
+    
+    .apple-menu-item {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      margin: 2px 0;
+      border-radius: 12px;
+      padding: 0 16px;
+      transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      
+      &:hover {
+        background: rgba(0, 0, 0, 0.04);
+      }
+      
+      &.apple-menu-item-selected {
+        background: rgba(0, 113, 227, 0.1);
+        color: #0071e3;
+        font-weight: 500;
+      }
+    }
+    
+    .apple-menu-divider {
+      height: 1px;
+      background: rgba(0, 0, 0, 0.06);
+      margin: 12px 0;
+    }
+    
+    .apple-menu-item-content {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      
+      .apple-label-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        border: 1.5px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+      }
+      
+      .apple-menu-item-text {
+        flex: 1;
+        font-size: 15px;
+        color: #1d1d1f;
+        letter-spacing: -0.011em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      
+      .apple-menu-item-count {
+        font-size: 14px;
+        color: #86868b;
+        flex-shrink: 0;
+        font-weight: 400;
+      }
+    }
+  }
+  
+  .apple-sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    background: #ffffff;
+    
+    .apple-sidebar-create-btn {
+      width: 100%;
+    }
+  }
+}
+

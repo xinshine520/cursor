@@ -1,0 +1,58 @@
+.apple-toaster {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.apple-toast {
+  min-width: 300px;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  padding: 16px 20px;
+  pointer-events: auto;
+  animation: slideInRight 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.apple-toast-destructive {
+    border-left: 4px solid #ff3b30;
+  }
+
+  &.apple-toast-default {
+    border-left: 4px solid #0071e3;
+  }
+
+  .apple-toast-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .apple-toast-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1d1d1f;
+    }
+
+    .apple-toast-description {
+      font-size: 14px;
+      color: #86868b;
+    }
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+

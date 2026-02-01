@@ -1,0 +1,67 @@
+/* MotherDuck Design Tokens */
+
+:root {
+  /* Color System */
+  --md-cream: #F4EFEA;        /* page shell */
+  --md-sunbeam: #FFDE00;      /* eyebrow, promo strips */
+  --md-sunbeam-dark: #E3C300; /* hover/pressed */
+  --md-sky: #6FC2FF;          /* primary CTA fill */
+  --md-sky-strong: #2BA5FF;   /* focus rings, active inputs */
+  --md-soft-blue: #EBF9FF;    /* secondary sections */
+  --md-cloud: #FFFFFF;        /* cards & quotes */
+  --md-fog: #F8F8F7;          /* form fills */
+  --md-ink: #383838;          /* primary text */
+  --md-slate: #A1A1A1;        /* secondary text */
+  --md-graphite: #000000;     /* structural strokes */
+  --md-shadow: rgba(0, 0, 0, 0.08); /* hover shadows */
+  --md-grid-line: #E4D6C3;    /* graph-paper overlays */
+
+  /* Typography */
+  --font-family-primary: "Aeonik Mono", "Aeonik Fono", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-family-alt: "Aeonik Fono", "Aeonik Mono", sans-serif;
+  
+  /* Font Sizes */
+  --font-hero: 72px;
+  --font-hero-line: 86px;
+  --font-h2: 32px;
+  --font-h2-line: 45px;
+  --font-h3: 18px;
+  --font-h3-line: 25px;
+  --font-body: 15px;
+  --font-body-line: 22px;
+  --font-ui: 14px;
+  --font-ui-line: 20px;
+  --font-eyebrow: 12px;
+  --font-eyebrow-line: 16px;
+
+  /* Spacing System */
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 96px;
+  --space-section: 120px;
+
+  /* Layout Tokens */
+  --header-mobile: 70px;
+  --header-desktop: 90px;
+  --eyebrow-mobile: 70px;
+  --eyebrow-desktop: 55px;
+
+  /* Border & Shape */
+  --border-width: 2px;
+  --border-radius: 2px;
+  --border-color: var(--md-graphite);
+
+  /* Transitions */
+  --transition-fast: 120ms ease-in-out;
+  --transition-base: 200ms ease-in-out;
+  --transition-slow: 240ms ease-in-out;
+}
+
