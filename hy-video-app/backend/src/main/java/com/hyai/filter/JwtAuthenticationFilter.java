@@ -1,0 +1,68 @@
+package com.hyai.filter;
+
+import com.hyai.util.JwtUtil;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.Collections;
+
+@Component
+@RequiredArgsConstructor
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    
+    private final JwtUtil jwtUtil;
+    private final RedisTemplate<String, Object> redisTemplate;
+    
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, 
+                                   HttpServletResponse response, 
+                                   FilterChain filterChain) throws ServletException, IOException {
+        
+        String token = extractToken(request);
+        
+        if (token != null && jwtUtil.validateToken(token)) {
+            try {
+                Long userId = jwtUtil.getUserIdFromToken(token);
+                String username = jwtUtil.getUsernameFromToken(token);
+                
+                // 验证 Redis 中的 Token
+                String redisKey = com.hyai.common.Constants.REDIS_USER_TOKEN_PREFIX + userId;
+                String redisToken = (String) redisTemplate.opsForValue().get(redisKey);
+                
+                if (redisToken != null && redisToken.equals(token)) {
+                    UsernamePasswordAuthenticationToken authentication = 
+                        new UsernamePasswordAuthenticationToken(
+                            userId,
+                            null,
+                            Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
+                        );
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            } catch (Exception e) {
+                // Token 无效，继续过滤链
+            }
+        }
+        
+        filterChain.doFilter(request, response);
+    }
+    
+    private String extractToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+}

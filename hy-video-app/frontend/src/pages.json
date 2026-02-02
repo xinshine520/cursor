@@ -1,0 +1,98 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "华玥AI",
+        "navigationBarBackgroundColor": "#2563EB",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/material/index",
+      "style": {
+        "navigationBarTitleText": "素材",
+        "navigationBarBackgroundColor": "#2563EB",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/assets/index",
+      "style": {
+        "navigationBarTitleText": "资产",
+        "navigationBarBackgroundColor": "#2563EB",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/me/index",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "navigationBarBackgroundColor": "#2563EB",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "登录",
+        "navigationBarBackgroundColor": "#667eea",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/register/index",
+      "style": {
+        "navigationBarTitleText": "注册",
+        "navigationBarBackgroundColor": "#667eea",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/settings/index",
+      "style": {
+        "navigationBarTitleText": "账号设置",
+        "navigationBarBackgroundColor": "#2563EB",
+        "navigationBarTextStyle": "white"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "华玥AI",
+    "navigationBarBackgroundColor": "#2563EB",
+    "backgroundColor": "#F8FAFC"
+  },
+  "tabBar": {
+    "color": "#64748B",
+    "selectedColor": "#2563EB",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/home.svg",
+        "selectedIconPath": "static/home-active.svg"
+      },
+      {
+        "pagePath": "pages/material/index",
+        "text": "素材",
+        "iconPath": "static/folder.svg",
+        "selectedIconPath": "static/folder-active.svg"
+      },
+      {
+        "pagePath": "pages/assets/index",
+        "text": "资产",
+        "iconPath": "static/briefcase.svg",
+        "selectedIconPath": "static/briefcase-active.svg"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "text": "我的",
+        "iconPath": "static/user.svg",
+        "selectedIconPath": "static/user-active.svg"
+      }
+    ]
+  }
+}
