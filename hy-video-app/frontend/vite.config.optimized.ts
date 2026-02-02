@@ -99,8 +99,7 @@ export default defineConfig({
       },
       
       // 外部依赖（如果有 CDN）
-      // 注意：uni-app 项目不应将 vue 和 pinia 标记为 external
-      // external: [],
+      external: [],
     },
     
     // 警告阈值（500KB）

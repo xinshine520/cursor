@@ -2,7 +2,7 @@
     "name" : "华玥AI",
     "appid" : "__UNI__9D10D95",
     "description" : "",
-    "versionName" : "1.0.0",
+    "versionName" : "1.0.1",
     "versionCode" : "100",
     "transformPx" : false,
     /* 5+App特有相关 */
@@ -50,7 +50,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wxfdc32133312c62f3",
         "setting" : {
             "urlCheck" : false
         },

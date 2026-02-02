@@ -72,26 +72,26 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "static/home.svg",
-        "selectedIconPath": "static/home-active.svg"
+        "iconPath": "static/home.png",
+        "selectedIconPath": "static/home-active.png"
       },
       {
         "pagePath": "pages/material/index",
         "text": "素材",
-        "iconPath": "static/folder.svg",
-        "selectedIconPath": "static/folder-active.svg"
+        "iconPath": "static/folder.png",
+        "selectedIconPath": "static/folder-active.png"
       },
       {
         "pagePath": "pages/assets/index",
         "text": "资产",
-        "iconPath": "static/briefcase.svg",
-        "selectedIconPath": "static/briefcase-active.svg"
+        "iconPath": "static/briefcase.png",
+        "selectedIconPath": "static/briefcase-active.png"
       },
       {
         "pagePath": "pages/me/index",
         "text": "我的",
-        "iconPath": "static/user.svg",
-        "selectedIconPath": "static/user-active.svg"
+        "iconPath": "static/user.png",
+        "selectedIconPath": "static/user-active.png"
       }
     ]
   }
